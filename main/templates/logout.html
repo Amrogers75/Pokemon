@@ -1,0 +1,19 @@
+{% comment %}
+{% extends "post4.html" %}
+{% endcomment %}
+
+{% block body %}
+    
+<div>
+
+    {% if user.is_anonymous %}
+        <a href="{% url 'login_view' %}">login</a>
+    {% else %}
+        {{ user }}
+        </br>
+        <a href="{% url 'logout_view' %}?next=/">logout</a>
+    {% endif %}
+
+</div>
+
+{% endblock body %}

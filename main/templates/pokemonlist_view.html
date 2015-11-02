@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}    
+    {% for object in object_list %}
+    {{ object.pokemon.title }}
+        <br>
+        <a href="{% url 'pokemondetail' object.slug %}">{{ object.name }}</a>
+    {% endfor %}
+{% endblock body%}

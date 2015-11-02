@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+<h2>{% block body %}
+
+{{ object.pokemon.title }}<br>
+    <a href="{% url 'pokemondetail_view' object.slug %}">{{ object.name }}</a>
+
+{% endblock body %}</h2>
