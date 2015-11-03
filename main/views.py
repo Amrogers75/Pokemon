@@ -1,5 +1,7 @@
 from django.shortcuts import render, render_to_response
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as user_login
+from django.contrib.auth import logout as user_logout
 from main.models import CustomUser
 from django.template import RequestContext
 from django.db import IntegrityError
@@ -124,14 +126,13 @@ def signup(request):
     return render_to_response('signup.html', context, context_instance=RequestContext(request))
 
 
-def logout_view(request):
-
-    logout(request)
+def logout(request):
+    user_logout(request)
 
     return HttpResponseRedirect('/')
 
 
-def login_view(request):
+def login(request):
     context = {}
 
     form = UserLogin()
@@ -150,11 +151,12 @@ def login_view(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-
+            print email
+            print password
             auth_user = authenticate(email=email, password=password)
-
+            print auth_user
             if auth_user is not None:
-                login(request, auth_user)
+                user_login(request, auth_user)
 
                 print "auth_user is not none"
 
@@ -164,5 +166,5 @@ def login_view(request):
 
         else:
             context['valid'] = "Form is not valid."
-    return render_to_response('login_view.html', context, context_instance=RequestContext(request))
+    return render_to_response('login.html', context, context_instance=RequestContext(request))
 

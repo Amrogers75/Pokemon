@@ -1,17 +1,15 @@
-{% comment %}
-{% extends "post4.html" %}
-{% endcomment %}
+{% extends 'base.html' %}
 
 {% block body %}
     
 <div>
 
     {% if user.is_anonymous %}
-        <a href="{% url 'login_view' %}">login</a>
+        <a href="{% url 'login' %}">login</a>
     {% else %}
         {{ user }}
         </br>
-        <a href="{% url 'logout_view' %}?next=/">logout</a>
+        <a href="{% url 'logout' %}?next=/">logout</a>
     {% endif %}
 
 </div>

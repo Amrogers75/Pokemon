@@ -20,6 +20,8 @@ from django.conf.urls.static import static
 from main import views
 from main.forms import CustomUserCreationForm
 from django.views.generic.edit import CreateView
+from django.contrib.auth import views as auth_views
+
 # from django.conf.urls.defaults import *
 # from main.models import Pokemon
 # from vote.views import vote_on_object
@@ -50,10 +52,10 @@ urlpatterns = [
     # url(r'^(?P<slug>[-\w]+)/(?P<direction>up|down|clear)vote/?$', vote_on_object, pokemon_dict, name="pokemon-voting"),
 
 
-    url(r'^login_view/$', 'main.views.login_view', name='login_view'),
-    url(r'^logout_view/$', 'main.views.logout_view', name='logout_view'),
+    url(r'^login/$', 'main.views.login', name='login'),
+    url(r'^logout/$', 'main.views.logout', name='logout'),
 
-    url(r'^signup/$', 'main.views.signup', name='signup_view'),
+    url(r'^signup/$', 'main.views.signup', name='signup'),
 
     url(r'^regiser/$', CreateView.as_view(template_name='register.html', form_class=CustomUserCreationForm, success_url='/'))
 

@@ -34,3 +34,4 @@ class UserSingUp(forms.Form):
 class UserLogin(forms.Form):
     email = forms.CharField(required=True)
     password = forms.CharField(required=True, widget=forms.PasswordInput())
+    
