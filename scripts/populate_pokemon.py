@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import requests
 import os, sys
-# from unidecode import unidecode
-# from PIL import Image
+from unidecode import unidecode
+from PIL import Image
 import requests
 import json
 import django
@@ -14,7 +14,7 @@ django.setup()
 from django.conf import settings
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
-from main.models import Pokemon, Type, Pokedex, Description, Sprite, Move
+from main.models import Pokemon, Type, Pokedex, Description, Sprite, Move, Ability
 from StringIO import StringIO
 from django.template.defaultfilters import slugify
 
@@ -22,8 +22,8 @@ counter = 1
 while True:
     string_counter = str(counter)
     response = requests.get('http://pokeapi.co/api/v1/pokemon/'+string_counter) 
-    if response.status == 404:
-        break
+    # if response.status == 404:
+    #     break
     data = response.json()
     print data['name']
     counter += 1 
@@ -35,36 +35,39 @@ while True:
     # return requests.get(url).json()
 
     new_pokemon.national_id = data['national_id']
-    # new_pokemon.resource_uri = ['resource_uri'] no model made
-    # new_pokemon.created = data['created'], time crated in database
-    # new_pokemon.modified = data['modified'] tmie modified in database
 
     abilities_string = ''
+    print data['abilities']
     for ability in data['abilities']:
-        abilities_string += (ability['name'] + ', ')
-    new_pokemon.abilities = abilities_string
+        abilities_string = (ability['name'] + ', ')
+        ability_obj, created = Ability.objects.get_or_create(name=ability['name'])
+        print ability_obj
+        ability_obj.pokemon = new_pokemon
+        print new_pokemon
+        ability_obj.save()
     # new_pokemon.abilities = data['abilities']
 
-    # evolutions_string = ''
-    # for evelution in data['evolutions']:
-    #     evolutions_string += (evelution['detail'] + ', ')
+    evolutions_string = ''
+    for evelution in data['evolutions']:
+        evolutions_string = (evelution['method'] + ', ')
+        evolution.save()
     # new_pokemon.evolutions = evolutions_string
     # new_pokemon.evolutions = data['evolutions']['detail']
 
-    new_pokemon.descriptions = data['descriptions'][1]
-    # print "here"
+    new_pokemon.description = Description.objects.filter(name=data['descriptions'][0]['name'])
+
+# Model.objects.filter(field_name=some_param)
 
     moves_string = ''
     for move in data['moves']:
         moves_string += (move['name'] + ', ')
-        print moves_string
-    new_pokemon.moves = moves_string
-    # new_pokemon.moves = data['moves']
-    # new_pokemon.moves = data['moves'][1]
-    # for xcounter in data['moves']:
-    # new_pokemon.moves = Move.objects.get(name=data['moves'][xcounter]['name'])
-    # new_pokemon.types = Type.objects.get(name=data['type'])
-    new_pokemon.types = data['types'][0]
+        move_obj, created = Move.objects.get_or_create(name__iexact=move['name'])
+        move_obj.Pokemon = new_pokemon
+        move_obj.save()
+
+    new_pokemon.sprite = Sprite.objects.filter(name=data['sprites'][0]['name'])
+
+    new_pokemon, created = Type.objects.get_or_create(name__icontains=data['types'][0]['name'])
     new_pokemon.catch_rate = data['catch_rate']
     new_pokemon.species = data['species']
     new_pokemon.hp = data['hp']
@@ -85,11 +88,6 @@ while True:
 
 # for pokemon in Pokemon.objects.all():
 
-#     param_dict = {'api_key': settings.FMAKEY, 'limit': 200, 'national_id': pokemon.national_id}
 
-#     response = requests.get('http://pokeapi.co/api/v1/pokedex/1/', params=param_dict)
-#     response = requests.get("https://freemusicarchive.org/api/get/genres.json?api_key=LFXEJ6IFAB5LFWIW")
-#     print response
-#     response_dict = response.json()
 
 
