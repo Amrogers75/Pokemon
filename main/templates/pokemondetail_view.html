@@ -13,16 +13,19 @@
             </div>
             <div class="row">
                 <div class="col-lg-6 col-lg-offset-2 center-text">
-                    <p>Card ID Number: {{ object.national_id }}<br> Species of Pokemon: {{ object.species }}<br> Type of Pokemon: {{ object.types }}<br> Decription: {{ object.descriptions }}<br>
-                        Abilities: {{ object.abilities }}<br> Evolutions: {{ object.evolutions }}<br> Growth Rate: {{ object.growth_rate }}<br> </p>
+                    <p>Card ID Number: {{ object.national_id }}<br> Species of Pokemon: {{ object.species }}<br> Type of Pokemon: {{ object.type }}<br> Decription: {{ object.descriptions }}<br>
+                        Abilities: {% for ability in object.ability_set.all %} {{ ability }}, {% endfor %}<br> Evolutions: {{ object.evolutions }}<br> Growth Rate: {{ object.growth_rate }}<br> 
+                        Moves: {% for move in object.move_set.all %} {{ move.name }}, {% endfor %}
+
+                        </p>
                 </div>
                 <div class="col-lg-4 center-text">
                     <p>Hit Points: {{ object.hp }}<br> Attack: {{ object.attack }}<br> Special Attack: {{ object.sp_atk }}<br> Special Defence: {{ object.sp_def }}<br> Experience: {{ object.exp }}<br> Catach Rate: {{ object.catch_rate }}<br>
                         Speed: {{ object.speed }}<br> Height: {{ object.height }}<br> Weight: {{ object.weight }}<br> Happiness: {{ object.happiness }}<br> Total {{ object.total }}<br></p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <a href="#" class="btn btn-lg btn-outline">
-                        <i class="fa fa-download"></i> Download Theme
+                    <a href="/spritelist/" class="btn btn-lg btn-outline">
+                        <i class="fa fa-download"></i> Sprite
                     </a>
                 </div>
             </div>

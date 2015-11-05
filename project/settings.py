@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'main',
     'vote',
+    'dynamic_scraper',
 )
 
 MIDDLEWARE_CLASSES = (

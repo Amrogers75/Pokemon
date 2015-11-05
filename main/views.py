@@ -15,6 +15,8 @@ from main.models import Pokemon, Type, Pokedex, Move
 from main.models import Ability, Description, Sprite 
 from main.forms import UserSingUp, UserLogin
 
+# from scrapy.contrib.CardView import CardView
+
 # Create your views here.
 
 
@@ -93,6 +95,10 @@ class MoveDetailView(DetailView):
     model = Move
     slug_field = ''
     template_name = 'move_detail.html'
+
+
+# class CardView(ImageView)
+#     model = 
 
 
 def signup(request):
@@ -188,3 +194,5 @@ def ajax_search(request):
     context = {}
 
     return render_to_response('ajax_view.html', context, context_instance=RequestContext(request))
+
+

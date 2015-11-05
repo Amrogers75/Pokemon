@@ -4,6 +4,8 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from vote.managers import VotableManager
+from dynamic_scraper.models import Scraper
+# from scrapy.contrib.url import CardView
 
 # Create your models here.
 
@@ -29,6 +31,7 @@ class Pokemon(models.Model):
     weight = models.FloatField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)
     happiness = models.IntegerField(null=True, blank=True)
+    type = models.ForeignKey('main.Type', null=True)
     votes = VotableManager()
     slug = models.SlugField()
 
@@ -44,7 +47,7 @@ class Type(models.Model):
     resistance = models.CharField(max_length=255, null=True, blank=True)
     super_effective = models.TextField(null=True, blank=True)
     weakness = models.TextField(null=True, blank=True)
-    pokemon = models.ForeignKey('main.Pokemon', null=True)
+    
 
     def __unicode__(self):
         return unicode(self.name)
@@ -54,7 +57,7 @@ class Ability(models.Model):
     description = models.TextField(null=True, blank=True)
     type_id = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=255, null=True, blank=True)
-    pokemon = models.ForeignKey('main.Pokemon', null=True)
+    pokemon = models.ManyToManyField('main.Pokemon', null=True)
 
     def __unicode__(self):
         return unicode(self.name)
@@ -79,10 +82,10 @@ class Move(models.Model):
     accuracy = models.IntegerField(null=True, blank=True)
     category = models.CharField(max_length=255, null=True, blank=True)
     pp_points = models.IntegerField(null=True, blank=True)
-    pokemon = models.ForeignKey('main.Pokemon', null=True)
+    pokemon = models.ManyToManyField('main.Pokemon', null=True)
 
     def __unicode__(self):
-        return self.name
+        return '%s' % self.name
 
 
 class Pokedex(models.Model):  
@@ -102,6 +105,15 @@ class Sprite(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+# class CardView(models.Model):
+#     name = models.CharField(max_length=200)
+#     url = models.URLField()
+#     scraper = models.ForeignKey(Scraper, blank=True, null=True)
+
+#     def __unicode__(self):
+#         return self.name
 
 
 class CustomUserManager(BaseUserManager):
