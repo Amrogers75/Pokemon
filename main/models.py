@@ -13,14 +13,7 @@ from vote.managers import VotableManager
 class Pokemon(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     national_id = models.IntegerField(null=True, blank=True)
-    # resource_uri - the uri of this resource.
-    # created = models.FloatField(null=True, blank=True)
-    # modified = models.FloatField(null=True, blank=True)
-    abilities = models.CharField(max_length=255, null=True, blank=True)
     evolutions = models.CharField(max_length=255, null=True, blank=True)
-    descriptions = models.CharField(max_length=255, null=True, blank=True)
-    moves = models.TextField(null=True, blank=True)
-    types = models.CharField(max_length=255, null=True, blank=True)
     catch_rate = models.IntegerField(null=True, blank=True)
     species = models.CharField(max_length=255, null=True, blank=True)
     hp = models.IntegerField(null=True, blank=True)
@@ -54,7 +47,7 @@ class Type(models.Model):
     pokemon = models.ForeignKey('main.Pokemon', null=True)
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
 
 class Ability(models.Model):
@@ -62,9 +55,9 @@ class Ability(models.Model):
     type_id = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=255, null=True, blank=True)
     pokemon = models.ForeignKey('main.Pokemon', null=True)
-    
+
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
 
 class Description(models.Model):
@@ -95,7 +88,7 @@ class Move(models.Model):
 class Pokedex(models.Model):  
     name = models.CharField(max_length=255, null=True, blank=True)
     pokemon = models.ForeignKey('main.Pokemon', null=True)
-    
+
     def __unicode__(self):
         return self.name
 
@@ -105,6 +98,7 @@ class Sprite(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     type_id = models.IntegerField(null=True, blank=True)
     image = models.ImageField(upload_to=pokemon)
+    slug = models.SlugField()
 
     def __unicode__(self):
         return self.name

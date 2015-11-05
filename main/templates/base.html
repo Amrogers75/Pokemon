@@ -59,7 +59,7 @@
                         <a href="/pokemonlist_view/">Portfolio</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">About</a>
+                        <a href="/spritelist/">Sprite</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#contact">Contact</a>
@@ -80,7 +80,7 @@
                     <div class="intro-text">
                         <span class="name">Pokemon Keeper</span>
                         <hr class="star-light">
-                        <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span>
+                        <span class="skills">Track your Cards - Get Stats - View Images</span>
                     </div>
                 </div>
             </div>
@@ -500,6 +500,7 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
+
     function vote(slug, direction) {
         $.post('/tips/'+slug+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
                 function(data) {

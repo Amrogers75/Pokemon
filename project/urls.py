@@ -37,20 +37,24 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
+
+
     url(r'^$', views.PokedexListView.as_view(), name='pokedexlist'),
     url(r'^pokedex_detail/(?P<slug>.+)/$', views.PokedexDetailView.as_view(), name='pokedexdetail'),
 
     url(r'^pokemonlist_view/$', views.PokemonListView.as_view(), name='pokemonlist'),
     url(r'^pokemondetail_view/(?P<slug>.+)/$', views.PokemonDetailView.as_view(), name='pokemondetail'),
 
-    # url(r'^$', views.TypeListView.as_view()),
-    # url(r'^Type_detail/(?P<slug>.+)/$', views.TypeDetailView.as_view()),
-    
-    # url(r'^sprite_view/$', views.SpriteListView.as_view(), name='sprite_view'),
-    # url(r'^sprite_detail/(?P<slug>.+)/$', views.SpriteDetailView.as_view(), name='pokedexdetail'),
+    url(r'^spritelist/$', views.SpriteListView.as_view(), name='spritelist'),
+    url(r'^spritedetail/(?P<slug>.+)/$', views.SpriteDetailView.as_view(), name='spritedetail'),
 
+    # url(r'^$', views.TypeListView.as_view(), name='typelist'),
+    # url(r'^Type_detail/(?P<slug>.+)/$', views.TypeDetailView.as_view(), name=typedetail),
+    
     # url(r'^(?P<slug>[-\w]+)/(?P<direction>up|down|clear)vote/?$', vote_on_object, pokemon_dict, name="pokemon-voting"),
 
+    url(r'^json_response/$', 'main.views.json_response', name='jsonresponse'),
+    url(r'^ajax_view/$', 'main.views.ajax_search', name='ajaxsearch'),
 
     url(r'^login/$', 'main.views.login', name='login'),
     url(r'^logout/$', 'main.views.logout', name='logout'),

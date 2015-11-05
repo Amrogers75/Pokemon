@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+{{ object.pokemon.title }}<br>
+    <a href="{% url 'spritedetail' object.slug %}">{{ object.name }}</a>
+{% endblock body %}

@@ -9,7 +9,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 
 from main.models import Pokemon, Type, Pokedex, Move
 from main.models import Ability, Description, Sprite 
@@ -38,6 +38,17 @@ class PokedexDetailView(DetailView):
     model = Pokedex
     slug_field = 'slug'
     template_name = 'pokedexdetail.html'
+
+
+class SpriteListView(ListView):
+    model = Sprite
+    template_name = 'spritelist.html'
+
+
+class SpriteDetailView(DetailView):
+    model = Sprite
+    slug_field = 'slug'
+    template_name = 'spritedetail.html'
 
 
 class DescriptionListView(ListView):
@@ -71,17 +82,6 @@ class AbilityDetailView(DetailView):
     model = Type
     slug_field = ''
     template_name = 'Ablity_detail.html'
-
-
-class SpriteListView(ListView):
-    model = Sprite
-    template_name = 'sprite_list.html'
-
-
-class SpriteDetailView(DetailView):
-    model = Sprite
-    slug_field = ''
-    template_name = 'sprite_detail.html'
 
 
 class MoveListView(ListView):
@@ -168,3 +168,23 @@ def login(request):
             context['valid'] = "Form is not valid."
     return render_to_response('login.html', context, context_instance=RequestContext(request))
 
+
+def json_response(request):
+    search_string = request.GET.get('search', '')
+
+    objects = Pokemon.objects.filter(name__icontains=search_string)
+
+    object_list = []
+
+    for object in objects:
+
+        object_list.append(object.name)
+
+    return JsonResponse(object_list, safe=False)
+
+
+def ajax_search(request):
+
+    context = {}
+
+    return render_to_response('ajax_view.html', context, context_instance=RequestContext(request))
