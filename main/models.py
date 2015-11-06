@@ -107,13 +107,13 @@ class Sprite(models.Model):
         return self.name
 
 
-# class CardView(models.Model):
-#     name = models.CharField(max_length=200)
-#     url = models.URLField()
+class CardView(models.Model):
+    name = models.CharField(max_length=200)
+    url = models.URLField()
 #     scraper = models.ForeignKey(Scraper, blank=True, null=True)
 
-#     def __unicode__(self):
-#         return self.name
+    def __unicode__(self):
+        return self.name
 
 
 class CustomUserManager(BaseUserManager):

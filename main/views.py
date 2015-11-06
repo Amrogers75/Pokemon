@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as user_login
 from django.contrib.auth import logout as user_logout
-from main.models import CustomUser
+
 from django.template import RequestContext
 from django.db import IntegrityError
 from django.views.generic.list import ListView
@@ -11,8 +11,9 @@ from django.views.generic.edit import CreateView
 
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 
+from main.models import CustomUser
 from main.models import Pokemon, Type, Pokedex, Move
-from main.models import Ability, Description, Sprite 
+from main.models import Ability, Description, Sprite
 from main.forms import UserSingUp, UserLogin
 
 # from scrapy.contrib.CardView import CardView
@@ -97,8 +98,9 @@ class MoveDetailView(DetailView):
     template_name = 'move_detail.html'
 
 
-# class CardView(ImageView)
-#     model = 
+# class CardView(ListView):
+#     model = Card
+#     template_name = 'card.html'
 
 
 def signup(request):
@@ -196,3 +198,4 @@ def ajax_search(request):
     return render_to_response('ajax_view.html', context, context_instance=RequestContext(request))
 
 
+# def vote_response(request):

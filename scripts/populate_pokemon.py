@@ -52,22 +52,16 @@ while True:
     new_pokemon.slug = slugify(data['name'])
     new_pokemon.save()
 
-
     print "Type %s" % data['types'][0]['name']
     if data['types'][0]['name'] != None:
         type_obj, created = Type.objects.get_or_create(name__iexact=data['types'][0]['name'])        
         new_pokemon.type = type_obj
         new_pokemon.save()
 
-
     for ability in data['abilities']:
         ability_obj, created = Ability.objects.get_or_create(name=ability['name'])
         ability_obj.pokemon.add(new_pokemon)  
 
-        # print "Pokemon Abilities %s" % ability_obj.pokemon.all()
-
-
-    # print "### MOVES: %s" % data['moves']
     for move in data['moves']:
         print "### MOVE: %s" % move['name']
         if move['name'] != '' and move['name'] != None:
@@ -80,13 +74,8 @@ while True:
 
 
     # new_pokemon.description = Description.objects.filter(name=data['descriptions'][0]['name'])
+    
     # new_pokemon.ev_yield = data['ev_yield'] no model made
-    # return requests.get(url).json()
-
-    # if response.status == 404:
-    #     break
-    # Model.objects.filter(field_name=some_param) 
-    # new_pokemon.abilities = data['abilities']
 
     # evolutions_string = ''
     # for evelution in data['evolutions']:
@@ -94,9 +83,9 @@ while True:
     #     evolution.save()
     # new_pokemon.evolutions = evolutions_string
     # new_pokemon.evolutions = data['evolutions']['detail']
-# new_pokemon.sprite = Sprite.objects.filter(name=data['sprites'][0]['name'])
 
-# for pokemon in Pokemon.objects.all():
+    # new_pokemon.sprite = Sprite.objects.filter(name=data['sprites'][0]['name'])
+
 
 
 

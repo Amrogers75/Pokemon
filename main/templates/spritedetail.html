@@ -3,5 +3,5 @@
 
 {% block body %}
 {{ object.pokemon.title }}<br>
-    <a href="{% url 'spritedetail' object.slug %}">{{ object.name }}</a>
+    <a href="{% url 'pokemonlist_view' object.slug %}">{{ object.name }}</a>
 {% endblock body %}
