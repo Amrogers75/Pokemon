@@ -8,6 +8,7 @@ from django.db import IntegrityError
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
+from vote.managers import VotableManager
 
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 

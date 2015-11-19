@@ -20,10 +20,20 @@
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <a href="#" class="btn btn-lg btn-outline">
-                        <i class="fa fa-download"></i> Sign In
+                        <i class="fa fa-download"></i> Vote
                     </a>
                 </div>
             </div>
         </div>
     </section>
 {% endblock body%}
+
+{% score_for_object object as score %}
+  <h5>Votes <span id="score">{{ score.score }}</span> point{{ score.score|pluralize }}
+           after <span id="num_votes">{{ score.num_votes }}</span> vote{{ score.num_votes|pluralize }}</h5>
+  <ul>
+      <li><a href="#" onclick="vote('{{ object.slug }}', 'up');">Favorite Pokemon</a></li>
+      <li><a href="#" onclick="vote('{{ object.slug }}', 'down');">Least Favorite Pokemon</a></li>
+      {# <li><a href="#" onclick="vote('{{ object.slug }}', 'clear');">I take it back! Clear my vote.</a></li> #}
+  </ul>
+        

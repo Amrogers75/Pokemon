@@ -51,7 +51,7 @@ urlpatterns = [
     # url(r'^card/$', views.CardView.as_view(), name='card'),
     # url(r'^Type_detail/(?P<slug>.+)/$', views.TypeDetailView.as_view(), name=typedetail),
     
-    # url(r'^(?P<slug>[-\w]+)/(?P<direction>up|down|clear)vote/?$', vote_on_object, pokemon_dict, name="pokemon-voting"),
+    # url(r'^(?P<slug>[-\w]+)/(?P<direction>up|down|clear)vote/?$', vote_on_object, Pokemon, name='pokedexdetail'),
 
     url(r'^json_response/$', 'main.views.json_response', name='jsonresponse'),
     url(r'^ajax_view/$', 'main.views.ajax_search', name='ajaxsearch'),
