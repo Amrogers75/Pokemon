@@ -2,4 +2,4 @@
 media/
 migrations/
 .ds_store
-
+data.json
